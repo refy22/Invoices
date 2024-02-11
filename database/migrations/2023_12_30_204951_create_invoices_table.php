@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number');
-            $table->date('invoice_date');
-            $table->date('due_date');
+            $table->date('invoice_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->string('product');
-            $table->string('section');
-            $table->string('discount');
+            $table->unsignedBigInteger('section_id');
+            $table->decimal('amount_collection')->nullable();
+            $table->decimal('amount_commission');
+            $table->decimal('discount');
             $table->string('rate_vat');
             $table->decimal('value_vat',8,2);
             $table->decimal('total',8,2);
@@ -26,8 +28,12 @@ return new class extends Migration
             $table->string('value_status');
             $table->text('note')->nullable();
             $table->string('user');
+            $table->date('payment_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            //foreign 
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
         });
     }
 

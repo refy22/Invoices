@@ -14,8 +14,14 @@ class Sections extends Model
         'created_at',
         'updated_at'
     ] ;
+    
+    protected $table = 'sections';
 
     public function products(){
         return $this->hasMany(Product::class);
+    }
+
+    public function invoice(){
+        return $this->hasMany(Invoices::class);
     }
 }
