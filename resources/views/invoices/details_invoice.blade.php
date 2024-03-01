@@ -14,6 +14,38 @@
 				<!-- breadcrumb -->
 @endsection
 @section('content')
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+
+@if (session()->has('Add'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('Add') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+
+
+@if (session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('delete') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
 				<!-- row -->
 				<div class="row">
                     <div class="panel panel-primary tabs-style-3">
@@ -183,7 +215,7 @@
                                                         <tr>
                                                             <td>{{ $i }}</td>
                                                             <td>{{ $attachment->file_name }}</td>
-                                                            <td>{{ $attachment->Created_by }}</td>
+                                                            <td>{{ $attachment->created_by }}</td>
                                                             <td>{{ $attachment->created_at }}</td>
                                                             <td colspan="2">
 
@@ -279,5 +311,14 @@
         modal.find('.modal-body #file_name').val(file_name);
         modal.find('.modal-body #invoice_number').val(invoice_number);
     })
+</script>
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
 </script>
 @endsection

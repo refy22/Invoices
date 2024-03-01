@@ -91,7 +91,7 @@ class InvoiceDetailController extends Controller
         }
         $folderPath = public_path('attachments/' . $invoice->invoice_number);
         echo "Folder Path: " . $folderPath . "<br>";
-
+        
     //     // Check if the directory exists and is empty before attempting to delete it
     //     if (is_dir($folderPath)) {
     //      echo "Directory exists. Attempting to delete...<br>";
@@ -121,7 +121,17 @@ public function open_file($invoice_number, $file_name)
         return response()->json(['error' => 'File not found'], 404);
     }
 }
-
+public function download($invoice_number , $file_name){
+    $filePath = $invoice_number . '/' . $file_name;
+    $fullPath = public_path('attachments/' . $filePath);
+    if (file_exists($fullPath)) {
+       
+        return response()->download($fullPath);
+    } else {
+        
+        return response()->json(['error' => 'File not found'], 404);
+    }
+}   
     
 
     

@@ -69,8 +69,9 @@
                         <div class="card mg-b-20">
                             <div class="card-header pb-0">
                                 <div class="d-flex justify-content-between">
+                                    @can('اضافة قسم')
                                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة قسم</a>
-
+                                    @endcan
                                 </div>
 
                             </div>
